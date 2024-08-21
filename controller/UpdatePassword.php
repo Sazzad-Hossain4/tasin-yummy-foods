@@ -1,6 +1,10 @@
 <?php
 session_start();
-include ("../database/env.php");
+
+if(!isset($_SESSION['auth'])){
+    session_unset();
+    header("Location: ../index.php");
+}
 
 
 $user_id = $_SESSION['auth']['id'];
@@ -28,8 +32,9 @@ if(count($errors) > 0){
     header('Location: ../dashboard/profile.php');
     exit();
 } else{
-    $query = "SELECT * FROM users WHERE id = '$user_id'";
-    $result = mysqli_query($conn, $query);
+    include "../database/env.php";
+    $query = "SELECT * FROM users WHERE id= '$user_id'";
+    $result = mysqli_query($conn,$query);
 
     if($result->num_rows > 0){
         $res = mysqli_fetch_assoc($result);
@@ -40,7 +45,7 @@ if(count($errors) > 0){
             $query = "UPDATE users SET password='$newEncPassword' WHERE id='$user_id'";
             $res = mysqli_query($conn, $query);
             if($res){
-                $_SESSION['pass_update_success'] = true;
+                $_SESSION['success'] = true;
                 header('Location: ../dashboard/profile.php');
                 exit();
             } else {

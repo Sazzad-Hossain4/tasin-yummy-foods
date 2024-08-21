@@ -38,7 +38,7 @@
       </div>
       <div class="col-lg-4">
       <div class="card shadow">
-            <form action="./controller/UpdatePassword.php" method="POST">
+            <form action=" ../controller/UpdatePassword.php" method="POST">
                 <h3 class="card-header">Update Password</h3>
                 <div class="card-body">
                     <input type="password" name="old_password" class="form-control my-2" placeholder="Enter old password">
